@@ -1,8 +1,10 @@
 package com.example.jakeoneim.fitec;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -78,20 +80,34 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE) , BluetoothState.REQUEST_ENABLE_BT);
         }else{
             if(!bluetooth.isServiceAvailable()){
-                bluetooth.setupService();
-                bluetooth.startService(BluetoothState.DEVICE_OTHER); // Device which is not android
-
-                findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        bluetooth.send("wooRineun Fitec Da" , true);
-                    }
-                });
-
-
+               setupService(); // make bluetooth available and set button onClick
             }
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == BluetoothState.REQUEST_CONNECT_DEVICE){
+                bluetooth.connect(data);
+            }else if(requestCode == BluetoothState.REQUEST_ENABLE_BT){
+                setupService();
+            }
+        }else{
+            Toast.makeText(getApplicationContext() , "" , Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+
+    public void setupService(){
+        bluetooth.setupService();
+        bluetooth.startService(BluetoothState.DEVICE_OTHER); // Device which is not android
+
+        findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                bluetooth.send("wooRineun Fitec Da" , true);
+            }
+        });
+    }
 }
