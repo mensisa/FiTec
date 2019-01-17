@@ -1,10 +1,8 @@
 package com.example.jakeoneim.fitec;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,10 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bluetooth = new BluetoothSPP(this);
+        bluetooth = new BluetoothSPP(MainActivity.this);
 
         if(!bluetooth.isBluetoothAvailable()){
             Toast.makeText(getApplicationContext() , "[Error] Bluetooth Connection" , Toast.LENGTH_LONG).show();
+            finish();
         }
 
         bluetooth.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { // for receiving Data
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == Activity.RESULT_OK){
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext() , "" , Toast.LENGTH_LONG).show();
             finish();
         }
-    }
+    }*/
 
     public void setupService(){
         bluetooth.setupService();
