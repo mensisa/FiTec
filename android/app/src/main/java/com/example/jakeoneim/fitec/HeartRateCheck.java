@@ -1,6 +1,8 @@
 package com.example.jakeoneim.fitec;
 
-public class HeartRateCheck {
+import android.util.Log;
+
+public class HeartRateCheck extends Thread{
 
     int standardHeartRateOfUser;
 
@@ -10,6 +12,20 @@ public class HeartRateCheck {
 
     public boolean isProblem(int currentHertRate){
         return false;
+    }
+
+    public void run(){ //thread start
+        while (true){
+            Log.d("Debug" , "hearBeatThread");
+
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 }

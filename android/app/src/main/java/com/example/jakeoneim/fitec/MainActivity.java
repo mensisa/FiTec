@@ -10,6 +10,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FallDownCheck fTest = new FallDownCheck();
+        HeartRateCheck hTest = new HeartRateCheck();
+
+        fTest.start();
+        hTest.start();
+
     }
 
     protected void receiveDataFromFitBit(){
