@@ -45,14 +45,20 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void receiveDataFromSensor(){
+    public int[] receiveDataFromSensor(){ // receive data
+        return new int[7];
+    }
+
+    public void controller(){ //receive data and use it
+        int [] data;
         while (isConnected){
+            data = receiveDataFromSensor();
             //receiveData here
-            if(hTest.isProblem(0)){
+            if(hTest.isProblem(data[0])){
                 hTest.start();
             }
 
-            if(fTest.isFallenDown(1,1,1,1,1,1)){
+            if(fTest.isFallenDown(data[1],data[2],data[3],data[4],data[5],data[6])){
                 fTest.start();
             }
 
