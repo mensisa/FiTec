@@ -1,0 +1,17 @@
+{
+  "fitbit": {
+    "appType": "app",
+    "wipeColor": "#607d8b",
+    "requestedPermissions": [
+      "access_heart_rate",
+      "access_activity"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson"
+    ]
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.0.0"
+  }
+}

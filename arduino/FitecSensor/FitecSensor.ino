@@ -1,22 +1,17 @@
-#include <SoftwareSerial.h>
- 
-int Tx=6; //transport
-int Rx=7; //receive
- 
-SoftwareSerial btSerial(Tx, Rx);
- 
-void setup() 
-{
-  Serial.begin(9600);
-  btSerial.begin(9600);
+#define TxD 14;
+#define RxD 15;
+#define BTSerial Serial3;
+
+void setup(){
+  Serial.begin(9600);
+  Serial3.begin(9600);
 }
- 
-void loop()
-{
-  if (btSerial.available()) {       
-    Serial.write(btSerial.read());
-  }
-  if (Serial.available()) {         
-    btSerial.write(Serial.read());
-  }
+
+void loop(){
+  if(Serial3.available()){
+    Serial.write(Serial3.read());
+  }
+  if(Serial.available()){
+    Serial3.write(Serial.read());
+  }
 }
